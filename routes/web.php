@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\spotifyController;
+use Laravel\Lumen\Routing\Router;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,4 +16,16 @@
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
+
+$router->group(['prefix' => 'categories'], function (Router $router) {
+    $router->get('/', [
+        'uses' => 'SpotifyController@getCategories'
+    ]);
+});
+
+$router->group(['prefix' => 'releases'], function (Router $router) {
+    $router->get('/', [
+        'uses' => 'SpotifyController@getNewReleases'
+    ]);
 });
